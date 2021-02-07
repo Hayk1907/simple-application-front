@@ -1,12 +1,14 @@
 import {BrowserRouter, Route} from 'react-router-dom';
-import SignIn from './pages/Account/SignIn';
-import SignUp from './pages/Account/SignUp';
+import {SignIn, SignUp} from './pages';
+import Layout from './components/Layout';
 
 function Router() {
   return (
     <BrowserRouter>
-      <Route path="/signin" component={SignIn} />
-      <Route path="/signup" component={SignUp} />
+      <Layout>
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
+      </Layout>
     </BrowserRouter>
   );
 }
