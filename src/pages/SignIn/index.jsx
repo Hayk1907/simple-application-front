@@ -24,7 +24,11 @@ const validations = {
 
 function SignIn() {
   const onFinish = async values => {
-    await signIn(values);
+    try {
+      await signIn(values);
+    } catch ({message}) {
+      notification.error(message);
+    }
   };
 
   const onFinishFailed = errorInfo => {

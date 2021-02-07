@@ -1,7 +1,7 @@
 import React from 'react';
-import {FormWrapper, SignInWrapper} from './SignIn/styles';
 import {Button, Form, Input, notification} from 'antd';
-import AuthService from '../services/AuthService';
+import AuthService from '../../services/AuthService';
+import {FormWrapper, SignUpWrapper} from './styles';
 const {signUp} = AuthService;
 
 const validations = {
@@ -41,7 +41,11 @@ const validations = {
 function SignUp() {
   const onFinish = async values => {
     console.log('Success:', values);
-    await signUp(values);
+    try {
+      await signUp(values);
+    } catch ({message}) {
+      notification.error(message);
+    }
   };
 
   const onFinishFailed = errorInfo => {
@@ -49,7 +53,7 @@ function SignUp() {
     notification.error(errorInfo);
   };
   return (
-    <SignInWrapper>
+    <SignUpWrapper>
       <FormWrapper name="basic" initialValues={{remember: true}} onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <h1>Sign up</h1>
         <Form.Item label="First name" name="firstName" rules={validations.firstName}>
@@ -73,7 +77,7 @@ function SignUp() {
           </Button>
         </Form.Item>
       </FormWrapper>
-    </SignInWrapper>
+    </SignUpWrapper>
   );
 }
 
