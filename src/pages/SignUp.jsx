@@ -1,6 +1,8 @@
 import React from 'react';
 import {FormWrapper, SignInWrapper} from './SignIn/styles';
-import {Button, Form, Input} from 'antd';
+import {Button, Form, Input, notification} from 'antd';
+import AuthService from '../services/AuthService';
+const {signUp} = AuthService;
 
 const validations = {
   firstName: [
@@ -37,12 +39,14 @@ const validations = {
 };
 
 function SignUp() {
-  const onFinish = values => {
+  const onFinish = async values => {
     console.log('Success:', values);
+    await signUp(values);
   };
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
+    notification.error(errorInfo);
   };
   return (
     <SignInWrapper>

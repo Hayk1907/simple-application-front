@@ -1,6 +1,8 @@
 import React from 'react';
-import {Form, Button, Input} from 'antd';
+import {Form, Button, Input, notification} from 'antd';
+import AuthService from '../../services/AuthService';
 import {SignInWrapper, FormWrapper} from './styles';
+const {signIn} = AuthService;
 
 const validations = {
   email: [
@@ -21,12 +23,13 @@ const validations = {
 };
 
 function SignIn() {
-  const onFinish = values => {
-    console.log('Success:', values);
+  const onFinish = async values => {
+    await signIn(values);
   };
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
+    notification.error(errorInfo);
   };
 
   return (
